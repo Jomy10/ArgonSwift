@@ -7,27 +7,22 @@ open class ArView {
 
     init(ptr: UnsafeMutablePointer<arView>) {
         self.ptr = ptr
-        self.ptr.pointee.manual_children_management_data = self.toPtr()
+        self.ptr.pointee.manual_children_management_data = self.asPtr()
+        self.ptr.pointee.manual_children_management_callback = { ptr in
+            Unmanaged<ArView>.fromOpaque(ptr!).takeUnretainedValue()
+                .release()
+        }
     }
 
-    func toPtr() -> UnsafeMutableRawPointer {
-        //return UnsafeMutableRawPointer(unsafeBitCast(self, to: UnsafeMutablePointer<Self>.self))
+    func asPtr() -> UnsafeMutableRawPointer {
         return UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
     }
 
     public convenience init() {
-        //self.ptr = arView_create()!
         self.init(ptr: arView_create()!)
-        self.ptr.pointee.manual_children_management_callback = { ptr in
-            Unmanaged<ArView>.fromOpaque(ptr!).takeUnretainedValue()
-                .release()
-            // ptr!.assumingMemoryBound(to: ArView.self)
-            //     .pointee
-            //     .release()
-        }
     }
 
-    public var draw: @convention(c) (UnsafeMutablePointer<arView>?, ArCanvas) -> Void {
+    public var draw: @convention(c) (UnsafeMutablePointer<arView>?, Olivec_Canvas) -> Void {
         get {
             self.ptr.pointee.draw
         }
@@ -36,7 +31,7 @@ open class ArView {
         }
     }
 
-    public func drawView(canvas: ArCanvas, at position: ArPosition) {
+    public func drawView(canvas: Olivec_Canvas, at position: ArPosition) {
         arView_draw(self.ptr, canvas, position)
     }
 

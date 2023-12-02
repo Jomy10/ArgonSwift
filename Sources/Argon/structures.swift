@@ -1,7 +1,5 @@
 import ArgonC
 
-public typealias ArCanvas = Olivec_Canvas
-
 public typealias ArPosition = arPosition
 extension ArPosition {
     static func +(lhs: ArPosition, rhs: ArPosition) {
