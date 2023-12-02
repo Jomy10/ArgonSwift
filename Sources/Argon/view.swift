@@ -60,6 +60,7 @@ open class ArView {
         // TODO: release children (in destroy function?)
     }
 
+    // TODO: replace with a callback that passes ptr->manual_children_management_data as ArView to the callback
     public func setOnClick(_ onClick: @escaping @convention(c) (UnsafeMutablePointer<arView>?) -> Void) {
         arView_setOnClick(self.ptr, onClick)
     }
