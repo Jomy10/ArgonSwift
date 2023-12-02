@@ -16,7 +16,7 @@ var buffer: UnsafeMutableBufferPointer<UInt32> = UnsafeMutableBufferPointer<UInt
     start: surface.pointee.pixels.assumingMemoryBound(to: UInt32.self),
     count: Int(size.w * size.h)
 )
-var ui: ArgonUI = ArgonUI(buffer: buffer.baseAddress!, width: size.w, height: size.h, stride: size.w)
+var ui: ArgonUI = ArgonUI(buffer: buffer, width: size.w, height: size.h, stride: size.w)
 var quit = false
 
 func main() {

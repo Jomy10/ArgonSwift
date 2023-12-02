@@ -4,7 +4,7 @@ import SDL
 import Darwin.C
 
 final class ArgonTests: XCTestCase {
-    lazy var ui: ArgonUI = ArgonUI(buffer: self.buffer.baseAddress!, width: self.size.w, height: self.size.h, stride: self.size.w)
+    lazy var ui: ArgonUI = ArgonUI(buffer: self.buffer, width: self.size.w, height: self.size.h, stride: self.size.w)
     lazy var window: OpaquePointer = {
         SDL_CreateWindow(
             "Emulator window",
@@ -74,6 +74,12 @@ final class ArgonTests: XCTestCase {
         addTeardownBlock { [weak fill] in
             XCTAssertNil(fill, "Object should be deallocated. Detected memory leak")
         }
+    }
+
+    func testText() {
+        let v = ArView()
+        let fill = ArFill(color: 0xFF0000FF)
+        v.add(child: fill)
     }
 
     func runEnd() {

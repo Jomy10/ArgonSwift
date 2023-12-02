@@ -6,22 +6,22 @@ public final class ArgonUI {
 
     public init(buffer: inout [UInt32], width: Int32, height: Int32, stride: Int32) {
         self.ptr = buffer.withUnsafeMutableBufferPointer { bufptr in
-            argon_create(bufptr.baseAddress, width, height, stride)
+            argon_create(bufptr.baseAddress!, width, height, stride)
         }
     }
 
     public init(buffer: inout [UInt32], width: Int32, height: Int32) {
         self.ptr = buffer.withUnsafeMutableBufferPointer { bufptr in
-            argon_create(bufptr.baseAddress, width, height, width)
+            argon_create(bufptr.baseAddress!, width, height, width)
         }
     }
 
-    public init(buffer: UnsafeMutablePointer<UInt32>, width: Int32, height: Int32, stride: Int32) {
-        self.ptr = argon_create(buffer, width, height, stride)
+    public init(buffer: UnsafeMutableBufferPointer<UInt32>, width: Int32, height: Int32, stride: Int32) {
+        self.ptr = argon_create(buffer.baseAddress!, width, height, stride)
     }
 
-    public init(buffer: UnsafeMutablePointer<UInt32>, width: Int32, height: Int32) {
-        self.ptr = argon_create(buffer, width, height, width)
+    public init(buffer: UnsafeMutableBufferPointer<UInt32>, width: Int32, height: Int32) {
+        self.ptr = argon_create(buffer.baseAddress!, width, height, width)
     }
 
     public func resize(buffer: inout [UInt32], width: Int32, height: Int32, stride: Int32) {
@@ -46,6 +46,7 @@ public final class ArgonUI {
         argon_dispatchEvent(self.ptr, ev.cEvent)
     }
 
+    /// TODO: return the class instead (store as a static variable)
     public static var currentContext: UnsafeMutablePointer<ArgonC.ArgonUI> {
         get {
             argon_getCurrentContext()
@@ -53,6 +54,16 @@ public final class ArgonUI {
         set {
             argon_setContext(newValue)
         }
+    }
+
+    public func swapBuffers(root: ArView, _ newBuffer: inout [UInt32]) {
+        newBuffer.withUnsafeMutableBufferPointer { bufptr in
+            argon_swapBuffers(self.ptr, root.ptr, bufptr.baseAddress!)
+        }
+    }
+
+    public func swapBuffers(root: ArView, _ newBuffer: UnsafeMutableBufferPointer<UInt32>) {
+        argon_swapBuffers(self.ptr, root.ptr, newBuffer.baseAddress!)
     }
 
     deinit {

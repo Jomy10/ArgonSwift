@@ -64,5 +64,7 @@ public struct ArFont {
             self.font.color = newValue
         }
     }
+
+    static let defaultBitmap: ArBitmapFont = olivec_default_font
 }
 
