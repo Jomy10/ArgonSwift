@@ -15,6 +15,20 @@ Add this to your target's dependencies:
 .product(name: "Argon", package: "ArgonSwift"),
 ```
 
+## Compiling
+
+Unfortunately, to compile your project with SPM, you will need to add the flags `-Xcc -Ipath/to/olive.c`
+
+steps:
+1. Clone the olive.c repo:
+```sh
+git clone https://github.com/tsoding/olive.c
+```
+2. Add the flags when building or running your project:
+```sh
+swift build -Xcc -Iolive.c
+```
+
 ## Running tests
 
 ```sh
