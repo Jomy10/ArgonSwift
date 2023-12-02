@@ -29,6 +29,13 @@ var package = Package(
             cSettings: [
                 .headerSearchPath("deps/olive.c"),
                 .define("ARGON_MANAGE_CHILDREN_MANUALLY"),
+            ],
+            swiftSettings: [
+                // Applied to umbrella header of ArgonC
+                .unsafeFlags([
+                    "-Xcc", "-ISources/ArgonC/deps/olive.c",
+                    "-Xcc", "-DARGON_MANAGE_CHILDREN_MANUALLY",
+                ])
             ]
         ),
         .testTarget(

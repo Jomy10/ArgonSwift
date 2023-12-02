@@ -77,6 +77,17 @@ open class ArView {
         _ = Unmanaged.passUnretained(self).autorelease()
     }
 
+    #if USER_DATA
+    var userData: UnsafeMutableRawPointer {
+        get {
+            self.ptr.pointee.user_data
+        }
+        set {
+            self.ptr.pointee.user_data = newValue
+        }
+    }
+    #endif
+
     deinit {
         arView_destroy(self.ptr)
     }
