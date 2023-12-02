@@ -80,6 +80,12 @@ final class ArgonTests: XCTestCase {
         let v = ArView()
         let fill = ArFill(color: 0xFF0000FF)
         v.add(child: fill)
+        let text = ArText(text: "hello world, how are you?", font: ArFont.newBitmap(ArFont.defaultBitmap, size: 8, color: 0xFFFFFF00), enableWrapping: true)
+        v.add(child: text)
+
+        self.ui.root = v
+
+        self.runEnd()
     }
 
     func runEnd() {

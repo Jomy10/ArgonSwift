@@ -22,6 +22,15 @@ open class ArView {
         self.init(ptr: arView_create()!)
     }
 
+    public var shouldRerender: Bool {
+        get {
+            self.ptr.pointee.should_rerender
+        }
+        set {
+            self.ptr.pointee.should_rerender = newValue
+        }
+    }
+
     public var draw: @convention(c) (UnsafeMutablePointer<arView>?, Olivec_Canvas) -> Void {
         get {
             self.ptr.pointee.draw

@@ -65,6 +65,9 @@ public struct ArFont {
         }
     }
 
-    static let defaultBitmap: ArBitmapFont = olivec_default_font
+    // TODO
+    static let defaultBitmap: ArBitmapFont = {
+        return olivec_default_font
+    }()
 }
 
