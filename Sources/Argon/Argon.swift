@@ -66,6 +66,14 @@ public final class ArgonUI {
         argon_swapBuffers(self.ptr, root.ptr, newBuffer.baseAddress!)
     }
 
+    public var width: Int {
+        self.ptr.pointee.canvas.width
+    }
+
+    public var height: Int {
+        self.ptr.pointee.canvas.height
+    }
+
     deinit {
         argon_destroy(self.ptr)
     }
