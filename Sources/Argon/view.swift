@@ -78,7 +78,7 @@ open class ArView {
     }
 
     #if USER_DATA
-    public var userData: UnsafeMutableRawPointer {
+    public var userData: UnsafeMutableRawPointer? {
         get {
             self.ptr.pointee.user_data
         }
