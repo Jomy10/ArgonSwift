@@ -3,7 +3,7 @@ import ArgonC
 open class ArView {
     // destroy function -> replace with a new one from swift, calling the old function first
     // like that keep track of which classes are destroyed
-    let ptr: UnsafeMutablePointer<arView>
+    public let ptr: UnsafeMutablePointer<arView>
 
     init(ptr: UnsafeMutablePointer<arView>) {
         self.ptr = ptr
@@ -73,9 +73,9 @@ open class ArView {
         Unmanaged.passUnretained(self).release()
     }
 
-    func autorelease() {
-        _ = Unmanaged.passUnretained(self).autorelease()
-    }
+    // func autorelease() {
+    //     _ = Unmanaged.passUnretained(self).autorelease()
+    // }
 
     #if USER_DATA
     public var userData: UnsafeMutableRawPointer? {
